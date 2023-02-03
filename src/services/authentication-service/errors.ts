@@ -1,8 +1,15 @@
 import { ApplicationError } from '@/protocols';
 
-export default function invalidCredentialsError(): ApplicationError {
+export function invalidCredentialsError(): ApplicationError {
   return {
     name: 'InvalidCredentialsError',
-    message: 'email or password are incorrect',
+    message: 'nickname or password are incorrect',
+  };
+}
+
+export function conflictError(): ApplicationError {
+  return {
+    name: 'ConflictError',
+    message: 'This nickname already exists',
   };
 }

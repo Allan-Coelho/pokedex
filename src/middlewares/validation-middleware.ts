@@ -4,7 +4,6 @@ import httpStatus from 'http-status';
 import Joi, { ObjectSchema } from 'joi';
 
 function validate(schema: ObjectSchema, type: 'body' | 'params') {
-  console.log('validation start');
   const showDetails = (d: Joi.ValidationErrorItem) => d.message;
   return (request: Request, response: Response, next: NextFunction) => {
     const { error } = schema.validate(request[type], {
@@ -17,7 +16,6 @@ function validate(schema: ObjectSchema, type: 'body' | 'params') {
       const errorWithDetails = invalidDataError(error.details.map(showDetails));
       return response.status(httpStatus.BAD_REQUEST).send(errorWithDetails);
     }
-    console.log('validation end');
     return undefined;
   };
 }

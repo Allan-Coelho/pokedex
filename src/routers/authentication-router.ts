@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { singInPost } from '@/controllers';
+import { singIn, singUp } from '@/controllers';
 import { validateBody } from '@/middlewares';
 import { Router } from 'express';
-import { signInSchema } from '@/schemas';
+import { authenticationSchema } from '@/schemas';
 
 const authenticationRouter = Router();
 
-authenticationRouter.post('/sign-in', validateBody(signInSchema), singInPost);
+authenticationRouter
+  .post('/sign-in', validateBody(authenticationSchema), singIn)
+  .post('/sign-up', validateBody(authenticationSchema), singUp);
 
 export { authenticationRouter };

@@ -1,7 +1,7 @@
-import { SignInParams } from '@/services';
+import { AuthenticationParams } from '@/protocols';
 import Joi from 'joi';
 
-export const signInSchema = Joi.object<SignInParams>({
+export const authenticationSchema = Joi.object<AuthenticationParams>({
   nickname: Joi.string()
     .min(6)
     .max(32)
