@@ -1,10 +1,18 @@
 import { PoketeamParams, PoketeamResponse } from '@/protocols';
 import poketeamRepository from '@/repositories/poketeam-repository';
-import { conflictError } from './errors';
+import { PokeTeam } from '@prisma/client';
+import { conflictError, notFoundError, unauthorizedError } from './errors';
 
 async function findAndFail(title: string) {
   const poketeam = await poketeamRepository.find(title);
   if (poketeam !== null) throw conflictError();
+}
+
+async function findOrFail(title: string): Promise<PokeTeam> {
+  const poketeam = await poketeamRepository.find(title);
+  if (poketeam === null) throw notFoundError();
+
+  return poketeam;
 }
 
 async function create(params: PoketeamParams): Promise<PoketeamResponse> {
@@ -17,8 +25,19 @@ async function create(params: PoketeamParams): Promise<PoketeamResponse> {
   return poketeam;
 }
 
+async function exclude(params: PoketeamParams): Promise<void> {
+  const { title, userId } = params;
+  const poketeam = await findOrFail(title);
+  const isUnauthorized = poketeam.userId !== userId;
+
+  if (isUnauthorized) throw unauthorizedError();
+
+  await poketeamRepository.exclude(title);
+}
+
 const poketeamService = {
   create,
+  exclude,
 };
 
 export default poketeamService;
