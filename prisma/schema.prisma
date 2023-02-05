@@ -9,12 +9,14 @@ datasource db {
 
 model User {
   id        Int        @id @default(autoincrement())
-  nickname  String     @db.VarChar(255)
+  nickname  String     @unique @db.VarChar(255)
   password  String     @db.VarChar(255)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   Session   Session[]
   PokeTeam  PokeTeam[]
+
+  @@index([nickname])
 }
 
 model Session {
@@ -24,17 +26,28 @@ model Session {
   token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model PokeTeam {
-  id      Int       @id @default(autoincrement())
-  User    User      @relation(fields: [userId], references: [id])
-  userId  Int
-  Pokemon Pokemon[]
+  id        Int       @id @default(autoincrement())
+  User      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  title     String    @unique @db.VarChar(255)
+  Pokemon   Pokemon[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId])
 }
 
 model Pokemon {
   id         Int      @id @default(autoincrement())
   PokeTeam   PokeTeam @relation(fields: [pokeTeamId], references: [id])
   pokeTeamId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([pokeTeamId])
 }
