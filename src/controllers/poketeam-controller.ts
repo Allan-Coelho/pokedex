@@ -16,7 +16,7 @@ export async function createPoketeam(request: JWTRequest, response: Response) {
     const error = err as ApplicationError;
 
     if (error.name === 'ConflictError') {
-      return response.sendStatus(httpStatus.CONFLICT);
+      return response.status(httpStatus.CONFLICT).send(error);
     }
 
     return response.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
@@ -35,17 +35,29 @@ export async function deletePoketeam(request: JWTRequest, response: Response) {
     const error = err as ApplicationError;
 
     if (error.name === 'ConflictError') {
-      return response.sendStatus(httpStatus.CONFLICT);
+      return response.status(httpStatus.CONFLICT).send(error);
     }
 
     if (error.name === 'UnauthorizedError') {
-      return response.sendStatus(httpStatus.UNAUTHORIZED);
+      return response.status(httpStatus.UNAUTHORIZED).send(error);
     }
 
     if (error.name === 'NotFoundError') {
-      return response.sendStatus(httpStatus.NOT_FOUND);
+      return response.status(httpStatus.NOT_FOUND).send(error);
     }
 
+    return response.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+export async function getPoketeams(request: JWTRequest, response: Response) {
+  const { userId } = request;
+
+  try {
+    const result = await poketeamService.getAll(userId);
+
+    return response.status(httpStatus.OK).send(result);
+  } catch (err) {
     return response.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }

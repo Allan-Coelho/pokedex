@@ -35,9 +35,16 @@ async function exclude(params: PoketeamParams): Promise<void> {
   await poketeamRepository.exclude(title);
 }
 
+async function getAll(userId: number): Promise<PokeTeam[]> {
+  const poketeams = await poketeamRepository.findMany(userId);
+
+  return poketeams;
+}
+
 const poketeamService = {
   create,
   exclude,
+  getAll,
 };
 
 export default poketeamService;

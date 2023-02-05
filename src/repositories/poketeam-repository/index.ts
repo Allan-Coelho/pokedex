@@ -24,10 +24,19 @@ async function exclude(title: string): Promise<PokeTeam> {
   });
 }
 
+async function findMany(userId: number): Promise<PokeTeam[]> {
+  return prisma.pokeTeam.findMany({
+    where: {
+      userId,
+    },
+  });
+}
+
 const poketeamRepository = {
   create,
   find,
   exclude,
+  findMany,
 };
 
 export default poketeamRepository;
