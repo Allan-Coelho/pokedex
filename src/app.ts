@@ -3,6 +3,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import { loadEnv, connectDb, disconnectDB } from '@/configuration';
 import { authenticationRouter } from './routers/authentication-router';
+import { poketeamRouter } from './routers/poketeam-router';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 loadEnv();
@@ -12,6 +13,7 @@ app
   .use(cors())
   .use(express.json())
   .use('/authentication', authenticationRouter)
+  .use('/teams', poketeamRouter)
   .get('/health', (_req, res) => res.send('OK!'));
 
 export async function init(): Promise<Express> {

@@ -1,4 +1,5 @@
-import { User } from '@prisma/client';
+import { PokeTeam, User } from '@prisma/client';
+import { Request } from 'express';
 
 export type ApplicationError = {
   name: string;
@@ -13,11 +14,21 @@ export type RequestError = {
   message: string;
 };
 
+export type PoketeamParams = Pick<PokeTeam, 'userId' | 'title'>;
+
+export type PoketeamResponse = Pick<PokeTeam, 'id' | 'title' | 'userId'>;
+
+export type JWTRequest = Request & JWTPayload;
+
 export type AuthenticationParams = Pick<User, 'nickname' | 'password'>;
 
 export type AuthenticationResponse = {
   user: Pick<User, 'id' | 'nickname'>;
   token: string;
+};
+
+export type JWTPayload = {
+  userId: number;
 };
 
 export type FindUserOrFailResult = Pick<User, 'id' | 'nickname' | 'password'>;

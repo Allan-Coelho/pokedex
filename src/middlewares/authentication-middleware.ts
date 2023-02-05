@@ -1,14 +1,15 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import httpStatus from 'http-status';
 import * as jwt from 'jsonwebtoken';
 import { unauthorizedError } from '@/errors';
+import { JWTRequest, JWTPayload } from '@/protocols';
 import { prisma } from '@/configuration';
 
 function generateUnauthorizedResponse(response: Response) {
   response.status(httpStatus.UNAUTHORIZED).send(unauthorizedError());
 }
 
-function isValidRequestOrFail(request: Request, response: Response) {
+function isValidRequestOrFail(request: JWTRequest, response: Response) {
   const authHeader = request.header('Authorization');
   const TOKEN_POSITION = 1;
 
@@ -46,9 +47,3 @@ export async function authentication(request: JWTRequest, response: Response, ne
     return generateUnauthorizedResponse(response);
   }
 }
-
-export type JWTRequest = Request & JWTPayload;
-
-type JWTPayload = {
-  userId: number;
-};
