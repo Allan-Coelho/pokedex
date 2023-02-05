@@ -45,6 +45,7 @@ model PokeTeam {
 model Pokemon {
   id         Int      @id @default(autoincrement())
   PokeTeam   PokeTeam @relation(fields: [pokeTeamId], references: [id])
+  pokemonId  Int
   pokeTeamId Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
