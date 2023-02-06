@@ -1,5 +1,5 @@
 import { prisma } from '@/configuration';
-import { JWTPayload, PokemonParams } from '@/protocols';
+import { PokemonParams } from '@/protocols';
 import { Pokemon } from '@prisma/client';
 
 async function create(data: PokemonParams): Promise<Pokemon> {
