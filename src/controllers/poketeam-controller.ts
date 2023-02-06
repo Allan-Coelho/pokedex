@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import httpStatus from 'http-status';
 import { ApplicationError, JWTRequest } from '@/protocols';
-import poketeamService from '@/services/poketeam-service';
+import { poketeamService } from '@/services/poketeam-service';
 import { PokeTeam } from '@prisma/client';
 
 export async function createPoketeam(request: JWTRequest, response: Response) {

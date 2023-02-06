@@ -5,7 +5,7 @@ import { prisma } from '@/configuration';
 
 export async function createUser(): Promise<User> {
   const incomingPassword = faker.internet.password(6);
-  const hashedPassword = await bcrypt.hash(incomingPassword, 10);
+  const hashedPassword = await bcrypt.hash(incomingPassword, 6);
 
   return prisma.user.create({
     data: {

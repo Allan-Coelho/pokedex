@@ -1,4 +1,4 @@
-import { PokeTeam, User } from '@prisma/client';
+import { PokeTeam, Pokemon, User } from '@prisma/client';
 import { Request } from 'express';
 
 export type ApplicationError = {
@@ -13,6 +13,12 @@ export type RequestError = {
   name: string;
   message: string;
 };
+
+export type PokemonService = {
+  id: number;
+};
+
+export type PokemonParams = Pick<Pokemon, 'pokeTeamId' | 'pokemonId'>;
 
 export type PoketeamParams = Pick<PokeTeam, 'userId' | 'title'>;
 
@@ -32,3 +38,7 @@ export type JWTPayload = {
 };
 
 export type FindUserOrFailResult = Pick<User, 'id' | 'nickname' | 'password'>;
+
+export enum Enums {
+  WITHOUT_ITEMS = 0,
+}

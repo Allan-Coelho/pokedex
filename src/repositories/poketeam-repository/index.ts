@@ -16,6 +16,20 @@ async function find(title: string): Promise<PokeTeam | null> {
   });
 }
 
+async function findById(params: Pick<PokeTeam, 'userId' | 'id'>) {
+  const { id, userId } = params;
+
+  return prisma.pokeTeam.findFirst({
+    where: {
+      id,
+      userId,
+    },
+    include: {
+      Pokemon: true,
+    },
+  });
+}
+
 async function exclude(title: string): Promise<PokeTeam> {
   return prisma.pokeTeam.delete({
     where: {
@@ -29,6 +43,9 @@ async function findMany(userId: number): Promise<PokeTeam[]> {
     where: {
       userId,
     },
+    include: {
+      Pokemon: true,
+    },
   });
 }
 
@@ -37,6 +54,7 @@ const poketeamRepository = {
   find,
   exclude,
   findMany,
+  findById,
 };
 
 export default poketeamRepository;

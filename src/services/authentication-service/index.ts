@@ -65,8 +65,7 @@ async function signUp(params: AuthenticationParams): Promise<AuthenticationRespo
   };
 }
 
-const authenticationService = {
+export const authenticationService = {
   signIn,
   signUp,
 };
-export default authenticationService;

@@ -41,10 +41,8 @@ async function getAll(userId: number): Promise<PokeTeam[]> {
   return poketeams;
 }
 
-const poketeamService = {
+export const poketeamService = {
   create,
   exclude,
   getAll,
 };
-
-export default poketeamService;

@@ -1,4 +1,4 @@
-import authenticationService from '@/services/authentication-service';
+import { authenticationService } from '@/services';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { ApplicationError, AuthenticationParams } from '@/protocols';
