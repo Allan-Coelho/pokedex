@@ -5,22 +5,49 @@ Uma API de gerenciamento de times de Pokémon! Com ela, você pode criar, atuali
 ## API Reference
 
 GET `/health`
-Para verificar se a API esta funcionando.
+Para verificar se a API está funcionando.
 
 POST `/authentication/sign-up`
-Realizar o cadastro de usuários.
+Realiza o cadastro de usuários.
+
+```bash
+{
+   "nickname": "mynick",
+   "password": "mypassword"
+}
+```
 
 POST `/authentication/sign-in`
-Realizar a autenticacao de usuários por senha.
+Realiza a autenticação de usuários por senha.
+
+```bash
+{
+   "nickname": "mynick",
+   "password": "mypassword"
+}
+```
 
 POST `/poketeams`
-Criar um poketeam.
+Cria um PokeTeam.
+
+```bash
+{
+   "title": "mypoketeamtitle"
+}
+```
 
 GET `/poketeams`
-Listar os poketeams.
+Lista os PokeTeams.
 
 DELETE `/poketeams/:title`
-Deletar um poketeam pelo título.
+Deleta um PokeTeam pelo título.
 
 POST `/pokemon`
-Atribuir um pokemon á um poketeam.
+Atribui um Pokemon á um PokeTeam.
+
+```bash
+{
+   "pokemonId": 5,
+   "pokeTeamId": 12
+}
+```
