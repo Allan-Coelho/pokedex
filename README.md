@@ -4,6 +4,20 @@ Uma API de gerenciamento de times de Pokémon! Com ela, você pode criar, atuali
 
 ## API Reference
 
+### Como rodar
+
+1. Clone este repositório.
+
+2. Popule o arquivo `.env` como exemplificado no `.env.example`.
+
+3. Suba os contêiners do app.
+
+```bash
+docker-compose up --build
+```
+
+### Endpoints
+
 GET `/health`
 Para verificar se a API está funcionando.
 
